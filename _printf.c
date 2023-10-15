@@ -1,57 +1,49 @@
 #include "main.h"
 
 /**
- * print_buffer - prints buffer
- * @buffer[]: arr
- * @buffer_ind: strinf
- */
-void print_buffer(char buffer[], int *buffer_in);
-/**
- * _printf - Entry point
- * @format: char
- * Return: int
+ * _printf - prints anything
+ * @format: the format string
+ *
+ * Return: number of bytes printed
  */
 int _printf(const char *format, ...)
 {
-int i, prnt = 0, prnt_char = 0;
-int flags, width;
-int precision, size, buffer_in = 0;
-va_list arg;
-char buffer[BUFF_SIZE];
-if (format == NULL)
-return (-1);
-va_start(arg, format);
-for (i = 0; format && format[i] != '\0'; i++)
-{
-if (format[i] != '%')
-{
-buffer[buffer_in++] = format[i];
-if (buffer_in == BUFF_SIZE)
-print_buffer(buffer, &buffer_in);
-prnt_char++;
-}
-else
-{
-print_buffer(buffer, &buffer_in);
-flags = get_flags(format, &i);
-width = get_width(format, &i, arg);
-size = get_size(format, &i);
-precision = get_precision(format, &i, arg);
-++i;
-prnt = handle_print(format, &i, arg, buffer,
-		    flags, width, precision, size);
-if (prnt == -1)
-return (-1);
-prnt_char += prnt;
-}
-}
-print_buffer(buffer, &buffer_in);
-va_end(arg);
-return (prnt_char);
-}
-void print_buffer(char buffer[], int *buffer_in)
-{
-if (*buffer_in > 0)
-write(1, &buffer[0], *buffer_in);
-*buffer_in = 0;
+	int sum = 0;
+	va_list ap;
+	char *p, *start;
+	params_t params = PARAMS_INIT;
+
+	va_start(ap, format);
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (p = (char *)format; *p; p++)
+	{
+		init_params(&params, ap);
+		if (*p != '%')
+		{
+			sum += _putchar(*p);
+			continue;
+		}
+		start = p;
+		p++;
+		while (get_flag(p, &params)) /* while char at p is flag char */
+		{
+			p++; /* next char */
+		}
+		p = get_width(p, &params, ap);
+		p = get_precision(p, &params, ap);
+		if (get_modifier(p, &params))
+			p++;
+		if (!get_specifier(p))
+			sum += print_from_to(start, p,
+				params.l_modifier || params.h_modifier ? p - 1 : 0);
+		else
+			sum += get_print_func(p, ap, &params);
+	}
+	_putchar(BUF_FLUSH);
+	va_end(ap);
+	return (sum);
 }
