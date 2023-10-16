@@ -40,8 +40,8 @@ int print_number(char *s, params_t *params)
 		s++;
 		n--;
 	}
-	if (params->precision != UNIT_MAX0
-			while (i++ < params->precision)
+	if (params->precision != UINT_MAX)
+			while (n++ < params->precision)
 			*--s = '0';
 	if (num)
 	*--s = '-';
@@ -57,36 +57,27 @@ int print_number(char *s, params_t *params)
  * @params: param
  * Return: int
  */
-int print_number_right_shift(char *s, param_t *pamas)
+int print_number_right_shift(char *s, params_t *params)
 {
 unsigned int n = 0, n1, n2, i = _strlen(s);
 char padchar = ' ';
 
 if (params->zero_flag && !params->minus_flag)
 	padchar = '0';
-n1 = n2 = (!params->unsign && *s == '-';
-		if(n1 && i < params->width && padchar == '0' && !params->minus_flags)
-		s++;
+n1 = n2 = (!params->unsign && *s == '-');
+		if (n1 && i < params->width && padchar == '0' && !params->minus_flag)
+			s++;
 		else
-		n1 = 0;
+			n1 = 0;
 		if ((params->plus_flag && !n2) ||
 		(!params->plus_flag && params->space_flag && !n2))
-		i++;
+			i++;
 		if (n1 && padchar == '0')
-		n += _putchar('-');
-		if (params->plus_flags && !n2 && padchar == '0' && !params->unsign)
-		n += _putchar('+');
-		else if (!params->plus_flag && params->space_flags && !n2 &&
-			!params->unsign && params->zero_flag)
-		n += _putchar(' ');
-		while (i++ < params->width)
-		n += _putchar(padchar);
-		if (n1 && padchar == ' ');
-		n += _putchar('-');
-		if (params->plus_flag && !n2 && padchar == ' ' && !params->unsign)
-		n += _putchar('+');
+			n += _putchar('-');
+		if (params->plus_flag && !n2 && padchar == '0' && !params->unsign)
+			n += _putchar('+');
 		else if (!params->plus_flag && params->space_flag && !n2 &&
-				!params->unsign && !params->zero_flag)
+			!params->unsign && params->zero_flag)
 			n += _putchar(' ');
 		while (i++ < params->width)
 			n += _putchar(padchar);
@@ -96,7 +87,8 @@ n1 = n2 = (!params->unsign && *s == '-';
 			n += _putchar('+');
 		else if (!params->plus_flag && params->space_flag && !n2 &&
 				!params->unsign && !params->zero_flag)
-			n += _putchar(s);
+			n += _putchar(' ');
+		n += _puts(s);
 		return (n);
 }
 /**
@@ -107,13 +99,13 @@ n1 = n2 = (!params->unsign && *s == '-';
  */
 int print_number_left_shift(char *s, params_t *params)
 {
-	unsigned int n = 0, n1, n2, i =_strlen(s);
+	unsigned int n = 0, n1, n2, i = _strlen(s);
 	char padchar = ' ';
 
 	if (params->zero_flag && !params->minus_flag)
 		padchar = '0';
 	n1 = n2 = (!params->unsign && *s == ' ');
-	if (n1 && i < params->width && padchat == '0' && !params->minus_flag)
+	if (n1 && i < params->width && padchar == '0' && !params->minus_flag)
 		s++;
 	else
 		n1 = 0;
@@ -122,8 +114,8 @@ int print_number_left_shift(char *s, params_t *params)
 		n += _putchar('+'), i++;
 	else if (params->space_flag && !n2 && !params->unsign)
 		n += _putchar(' '), i++;
-	n += _putchar(s);
+	n += _puts(s);
 	while (i++ < params->width)
-		n += _putcharr(padchar);
+		n += _putchar(padchar);
 	return (n);
 }
