@@ -27,19 +27,19 @@ int print_from_to(char *start, char *stop, char *except)
  */
 int print_rev(va_list ap, params_t *params)
 {
-	int length, sum = 0;
-	char *s = va_arg(ap, char *);
+	int length, s = 0;
+	char *sr = va_arg(ap, char *);
 	(void)params;
 
-	if (s)
+	if (sr)
 	{
-		for (length = 0; *s; s++)
+		for (length = 0; *sr; sr++)
 			length++;
-		s--;
-		for (; length > 0; s--)
-			sum += _putchar(*s);
+		sr--;
+		for (; length > 0; sr--)
+			s += _putchar(*sr);
 	}
-	return (sum);
+	return (s);
 }
 /**
  * print_rot13  - prints in reverse
