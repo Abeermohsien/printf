@@ -23,11 +23,11 @@ char *convert(long int num, int base, int flags, params_t *params)
 
 	}
 	arr = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
-	ptr = &buffer[98];
+	ptr = &buffer[49];
 	*ptr = '\0';
 
 	do {
-		*--ptr = arr[num % b];
+		*--ptr = arr[n % base];
 		n /= base;
 	} while (n != 0);
 
