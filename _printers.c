@@ -1,24 +1,24 @@
 #include "main.h"
 /**
  * convert -  convert fun
- * @n: number
- * @b: base
+ * @base: base
+ * @num: int
  * @flags: flags
  * @params: paramters
  * Return: char
  */
-char *convert(long int n, int b, int flags, params_t *params)
+char *convert(long int num, int base, int flags, params_t *params)
 {
 	static char *arr;
 	static char buffer[50];
 	char sign = 0;
 	char *ptr;
-	unsigned long num = n;
+	unsigned long n = num;
 	(void)params;
 
-	if (!(flags & CONVERT_UNSIGNED) && n < 0)
+	if (!(flags & CONVERT_UNSIGNED) && num < 0)
 	{
-		num = -n;
+		n = -num;
 		sign = '-';
 
 	}
@@ -28,7 +28,7 @@ char *convert(long int n, int b, int flags, params_t *params)
 
 	do {
 		*--ptr = arr[num % b];
-		n /= b;
+		n /= base;
 	} while (n != 0);
 
 	if (sign)
