@@ -2,7 +2,7 @@
 /**
  * _isdigit - si digit
  * @c: char
- * Return: int
+ * Return: 1 if success otherwise 0
  */
 int _isdigit(int c)
 {
@@ -11,7 +11,7 @@ int _isdigit(int c)
 /**
  * _strlen - string count
  * @s: string
- * Return: int
+ * Return: integer length
  *
  */
 int _strlen(char *s)
@@ -26,7 +26,7 @@ int _strlen(char *s)
  * print_number - prints numbber
  * @str: string
  * @params: param
- * Return: int
+ * Return: chars 
  */
 int print_number(char *str, params_t *params)
 {

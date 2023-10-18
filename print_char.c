@@ -3,7 +3,7 @@
  * print_char - prints char
  * @ap: char
  * @params: char
- * Return: int
+ * Return: number chars printed
  *
  */
 int print_char(va_list ap, params_t *params)
