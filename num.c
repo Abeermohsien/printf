@@ -26,7 +26,7 @@ int _strlen(char *s)
  * print_number - prints numbber
  * @str: string
  * @params: param
- * Return: chars 
+ * Return: chars
  */
 int print_number(char *str, params_t *params)
 {
